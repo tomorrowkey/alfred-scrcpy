@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>jp.tomorrowkey.alfred.scrcpy</string>
+	<key>category</key>
+	<string>Tools</string>
+	<key>connections</key>
+	<dict>
+		<key>25E56000-6BD5-49F5-92B0-73FE69367FD4</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>4F637F77-29D4-4D2C-884F-F9267672A58A</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>Tomoki Yamashita</string>
+	<key>description</key>
+	<string>Alfred workflow to Launch scrcpy</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Scrcpy</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<true/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$ANDROID_HOME/platform-tools:$PATH
+serial="{query}"
+
+if [ $(ps x | grep -v "grep" | grep -c $serial) -gt 0 ]; then
+  # Bring Scrcpy window to front
+  osascript -e '
+  tell application "System Events"
+    tell process "scrcpy"
+      set frontmost to true
+    end tell
+  end tell
+  '
+else
+  # Launch scrcpy
+  /opt/homebrew/bin/scrcpy --serial $serial &gt;&gt; "$HOME/.scrcpy/scrcpy-$serial.log"; true
+fi</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>4F637F77-29D4-4D2C-884F-F9267672A58A</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<true/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>scrcpy</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string></string>
+				<key>script</key>
+				<string>ADB_BIN = "#{ENV["HOME"]}/Library/Android/sdk/platform-tools/adb"
+
+puts '&lt;?xml version="1.0"?&gt;'
+puts '&lt;items&gt;'
+`#{ADB_BIN} devices`.strip.split("\n").reject { |line| line == "List of devices attached" }.each { |line|
+  serial, type = line.split("\t")
+
+  puts &lt;&lt;~XML
+  &lt;item arg="#{serial}" autocomplete="#{serial}"&gt;
+    &lt;title&gt;Launch Scrcpy for #{type}(#{serial})&lt;/title&gt;
+    &lt;subtitle&gt;Launch Scrcpy for #{type}(#{serial})&lt;/subtitle&gt;
+  &lt;/item&gt;
+  XML
+}
+puts '&lt;/items&gt;'
+</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string></string>
+				<key>title</key>
+				<string>Scrcpy</string>
+				<key>type</key>
+				<integer>2</integer>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>25E56000-6BD5-49F5-92B0-73FE69367FD4</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string>Launch scrcpy</string>
+	<key>uidata</key>
+	<dict>
+		<key>25E56000-6BD5-49F5-92B0-73FE69367FD4</key>
+		<dict>
+			<key>xpos</key>
+			<real>370</real>
+			<key>ypos</key>
+			<real>335</real>
+		</dict>
+		<key>4F637F77-29D4-4D2C-884F-F9267672A58A</key>
+		<dict>
+			<key>xpos</key>
+			<real>595</real>
+			<key>ypos</key>
+			<real>335</real>
+		</dict>
+	</dict>
+	<key>userconfigurationconfig</key>
+	<array/>
+	<key>variablesdontexport</key>
+	<array/>
+	<key>version</key>
+	<string>1.0.0</string>
+	<key>webaddress</key>
+	<string>https://github.com/tomorrowkey/alfred-scrcpy#readme</string>
+</dict>
+</plist>
