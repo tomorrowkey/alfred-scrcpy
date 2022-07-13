@@ -1,0 +1,25 @@
+{
+  "name": "alfred-scrcpy",
+  "version": "1.0.0",
+  "description": "Alfred workflow to Launch scrcpy",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomorrowkey/alfred-scrcpy.git"
+  },
+  "keywords": [
+    "alfred",
+    "\"alfred-workflow\"",
+    "scrcpy",
+    "android"
+  ],
+  "author": "Tomoki Yamashita <tomorrowkey@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tomorrowkey/alfred-scrcpy/issues"
+  },
+  "homepage": "https://github.com/tomorrowkey/alfred-scrcpy#readme"
+}
