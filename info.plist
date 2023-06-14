@@ -44,6 +44,17 @@
 export PATH=$ANDROID_HOME/platform-tools:$PATH
 serial="{query}"
 
+if [ -d /opt/homebrew ]; then
+	# Use Homebrew scrcpy
+	export PATH=/opt/homebrew/bin:$PATH
+elsif [ -d /usr/local ]; then
+	# Use Homebrew scrcpy
+	export PATH=/usr/local/bin:$PATH
+else
+	echo "No Homebrew home found" 1&gt;&amp;2
+	exit 1
+fi
+
 if [ $(ps x | grep -v "grep" | grep -c $serial) -gt 0 ]; then
   # Bring Scrcpy window to front
   osascript -e '
@@ -55,7 +66,7 @@ if [ $(ps x | grep -v "grep" | grep -c $serial) -gt 0 ]; then
   '
 else
   # Launch scrcpy
-  /opt/homebrew/bin/scrcpy --serial $serial &gt;&gt; "$HOME/.scrcpy/scrcpy-$serial.log"; true
+  scrcpy --serial $serial &gt;&gt; "$HOME/.scrcpy/scrcpy-$serial.log"; true
 fi</string>
 				<key>scriptargtype</key>
 				<integer>0</integer>
