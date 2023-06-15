@@ -47,7 +47,7 @@ serial="{query}"
 if [ -d /opt/homebrew ]; then
 	# Use Homebrew scrcpy
 	export PATH=/opt/homebrew/bin:$PATH
-elsif [ -d /usr/local ]; then
+elif [ -d /usr/local ]; then
 	# Use Homebrew scrcpy
 	export PATH=/usr/local/bin:$PATH
 else
